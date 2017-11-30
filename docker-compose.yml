@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  skybox:
+    image: skyboxsecurity/server:latest
+    environment:
+      #- TZ=Asia/Jerusalem
+      - server.sb_server.es_enable=true
+      - server.sb_server.es_kibana_enable=true
+      #- collector.sb_common.rua_multi_period_counter_use_map=true
+    restart: unless-stopped
+    ports:
+      - "18443:8443"
+      - "15601:5601"
+    stop_grace_period: 4m
+    volumes:
+      # named
+      - data:/opt/skyboxview/data
+      - server_log:/opt/skyboxview/server/log
+      - collector_log:/opt/skyboxview/collector/log
+      - server_confx:/opt/skyboxview/server/confx
+      - collector_confx:/opt/skyboxview/collector/confx
+      #- ./lala.txt:/opt/skyboxview/server/conf/lala.txt
+      # anonymous
+      - /opt/skyboxview/thirdparty/jboss/server/default/tmp
+      - /opt/skyboxview/thirdparty/jboss/server/default/work
+      - /opt/skyboxview/thirdparty/jboss/server/default/data
+      - /opt/skyboxview/thirdparty/jboss/server/default/log
+      - /opt/skyboxview/thirdparty/jboss/server/web/tmp
+      - /opt/skyboxview/thirdparty/jboss/server/web/work
+      - /opt/skyboxview/thirdparty/jboss/server/web/data
+      - /opt/skyboxview/thirdparty/jboss/server/web/log
+    healthcheck:
+      test: ["CMD-SHELL", "curl -k -u skyboxview:skyboxview -H 'accept: application/json' -X GET 'https://localhost:8443/skybox/webservice/jaxrsinternal/internal/healthcheck/ping' || exit 1"]
+      interval: 10s
+      timeout: 20s
+      retries: 90
+volumes:
+  data:
+  server_log:
+  collector_log:
+  server_conf:
+  collector_conf:
+  server_confx:
+  collector_confx:
