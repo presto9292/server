@@ -4,8 +4,8 @@ services:
     image: skyboxsecurity/server:latest
     environment:
       #- TZ=Asia/Jerusalem
-      - server.sb_server.es_enable=true
-      - server.sb_server.es_kibana_enable=true
+      - server.sb_server.es_enable=false
+      - server.sb_server.es_kibana_enable=false
       #- collector.sb_common.rua_multi_period_counter_use_map=true
     restart: unless-stopped
     ports:
