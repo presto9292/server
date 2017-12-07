@@ -33,5 +33,5 @@ LABEL com.skyboxsecurity.name="Skybox Integrated Image" \
         com.skyboxsecurity.license="Skybox License" \
         com.skyboxsecurity.build-date="$skybox_build_date" \
         com.skyboxsecurity.description="Integrated Image of Skybox Server & Collector" \
-        com.skyboxsecurity.maintainer="yair@skyboxsecurity.com"
+        com.skyboxsecurity.maintainer="sales@skyboxsecurity.com"
 CMD ["./startserver-debug.sh"]
